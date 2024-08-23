@@ -1,14 +1,18 @@
-name: GitHub actions demo
-run-name: Testing our Github actions
+name: Conditional workflow execution
 
-on: [push]
-
-env:
-  owner_name: Natalia
-  my_repo_var_value: ${{ vars.MY_REPO_VAR }}
-
+on: 
+  push:
+    branches:
+      - main
+      - demo*
+      
 jobs:
-  basic_workflow:
+  main_job:
+    if: startsWith(github.ref, 'refs/heads/main')
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Job basic_workflow is executing as part of new workflow - from $owner_name - with repo var value $my_repo_var_value"
+      - run: echo "---JOB EXECUTION ON MAIN BRANCH PUSH---"
+      - uses: actions/checkout@v4.1.7
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
