@@ -4,10 +4,11 @@ run-name: Testing our Github actions
 on: [push]
 
 env:
-  owner_name: ABhi
+  owner_name: Natalia
+  my_repo_var_value: ${{ vars.MY_REPO_VAR }}
 
 jobs:
   basic_workflow:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Job basic_workflow is executing as part of new workflow - from $owner_name"
+      - run: echo "Job basic_workflow is executing as part of new workflow - from $owner_name - with repo var value $my_repo_var_value"
